@@ -1,0 +1,984 @@
+Terminals unused in grammar
+
+   SERVERS
+   SERVERS_OPTION
+   UNKNOWN_OPTION
+   UNKNOWN
+   KETAMA_HASH
+   KETAMA_WEIGHTED
+   CSL_TRUE
+   CSL_FALSE
+   '='
+   CSL_FLOAT
+   FILE_PATH
+
+
+Grammar
+
+    0 $accept: begin $end
+
+    1 begin: statement
+    2      | begin ' ' statement
+
+    3 statement: expression
+    4          | COMMENT
+    5          | EMPTY_LINE
+    6          | END
+    7          | CSL_ERROR
+    8          | RESET
+    9          | PARSER_DEBUG
+   10          | INCLUDE ' ' string
+
+   11 expression: SERVER HOSTNAME optional_port optional_weight
+   12           | SERVER IPADDRESS optional_port optional_weight
+   13           | CSL_SOCKET string optional_weight
+   14           | CONFIGURE_FILE string
+   15           | POOL_MIN NUMBER
+   16           | POOL_MAX NUMBER
+   17           | behaviors
+
+   18 behaviors: NAMESPACE string
+   19          | FETCH_VERSION
+   20          | DISTRIBUTION distribution
+   21          | DISTRIBUTION distribution ',' hash
+   22          | HASH hash
+   23          | behavior_number NUMBER
+   24          | behavior_boolean
+   25          | USER_DATA
+
+   26 behavior_number: REMOVE_FAILED_SERVERS
+   27                | CONNECT_TIMEOUT
+   28                | IO_MSG_WATERMARK
+   29                | IO_BYTES_WATERMARK
+   30                | IO_KEY_PREFETCH
+   31                | NUMBER_OF_REPLICAS
+   32                | NUMBER_OF_K
+   33                | NUMBER_OF_M
+   34                | POLL_TIMEOUT
+   35                | RCV_TIMEOUT
+   36                | RETRY_TIMEOUT
+   37                | SND_TIMEOUT
+   38                | SOCKET_RECV_SIZE
+   39                | SOCKET_SEND_SIZE
+
+   40 behavior_boolean: BINARY_PROTOCOL
+   41                 | BUFFER_REQUESTS
+   42                 | HASH_WITH_NAMESPACE
+   43                 | NOREPLY
+   44                 | RANDOMIZE_REPLICA_READ
+   45                 | SORT_HOSTS
+   46                 | SUPPORT_CAS
+   47                 | _TCP_NODELAY
+   48                 | _TCP_KEEPALIVE
+   49                 | _TCP_KEEPIDLE
+   50                 | USE_UDP
+   51                 | VERIFY_KEY
+
+   52 optional_port: %empty
+   53              | PORT
+
+   54 optional_weight: %empty
+   55                | WEIGHT_START
+
+   56 hash: MD5
+   57     | CRC
+   58     | FNV1_64
+   59     | FNV1A_64
+   60     | FNV1_32
+   61     | FNV1A_32
+   62     | HSIEH
+   63     | MURMUR
+   64     | JENKINS
+
+   65 string: STRING
+   66       | QUOTED_STRING
+
+   67 distribution: CONSISTENT
+   68             | MODULA
+   69             | RANDOM
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+' ' (32) 2 10
+',' (44) 21
+'=' (61)
+error (256)
+COMMENT (258) 4
+END (259) 6
+CSL_ERROR (260) 7
+RESET (261) 8
+PARSER_DEBUG (262) 9
+INCLUDE (263) 10
+CONFIGURE_FILE (264) 14
+EMPTY_LINE (265) 5
+SERVER (266) 11 12
+CSL_SOCKET (267) 13
+SERVERS (268)
+SERVERS_OPTION (269)
+UNKNOWN_OPTION (270)
+UNKNOWN (271)
+BINARY_PROTOCOL (272) 40
+BUFFER_REQUESTS (273) 41
+CONNECT_TIMEOUT (274) 27
+DISTRIBUTION (275) 20 21
+HASH (276) 22
+HASH_WITH_NAMESPACE (277) 42
+IO_BYTES_WATERMARK (278) 29
+IO_KEY_PREFETCH (279) 30
+IO_MSG_WATERMARK (280) 28
+KETAMA_HASH (281)
+KETAMA_WEIGHTED (282)
+NOREPLY (283) 43
+NUMBER_OF_REPLICAS (284) 31
+NUMBER_OF_K (285) 32
+NUMBER_OF_M (286) 33
+POLL_TIMEOUT (287) 34
+RANDOMIZE_REPLICA_READ (288) 44
+RCV_TIMEOUT (289) 35
+REMOVE_FAILED_SERVERS (290) 26
+RETRY_TIMEOUT (291) 36
+SND_TIMEOUT (292) 37
+SOCKET_RECV_SIZE (293) 38
+SOCKET_SEND_SIZE (294) 39
+SORT_HOSTS (295) 45
+SUPPORT_CAS (296) 46
+USER_DATA (297) 25
+USE_UDP (298) 50
+VERIFY_KEY (299) 51
+_TCP_KEEPALIVE (300) 48
+_TCP_KEEPIDLE (301) 49
+_TCP_NODELAY (302) 47
+FETCH_VERSION (303) 19
+NAMESPACE (304) 18
+POOL_MIN (305) 15
+POOL_MAX (306) 16
+MD5 (307) 56
+CRC (308) 57
+FNV1_64 (309) 58
+FNV1A_64 (310) 59
+FNV1_32 (311) 60
+FNV1A_32 (312) 61
+HSIEH (313) 62
+MURMUR (314) 63
+JENKINS (315) 64
+CONSISTENT (316) 67
+MODULA (317) 68
+RANDOM (318) 69
+CSL_TRUE (319)
+CSL_FALSE (320)
+CSL_FLOAT (321)
+NUMBER (322) 15 16 23
+PORT (323) 53
+WEIGHT_START (324) 55
+IPADDRESS (325) 12
+HOSTNAME (326) 11
+STRING (327) 65
+QUOTED_STRING (328) 66
+FILE_PATH (329)
+
+
+Nonterminals, with rules where they appear
+
+$accept (78)
+    on left: 0
+begin (79)
+    on left: 1 2, on right: 0 2
+statement (80)
+    on left: 3 4 5 6 7 8 9 10, on right: 1 2
+expression (81)
+    on left: 11 12 13 14 15 16 17, on right: 3
+behaviors (82)
+    on left: 18 19 20 21 22 23 24 25, on right: 17
+behavior_number (83)
+    on left: 26 27 28 29 30 31 32 33 34 35 36 37 38 39, on right: 23
+behavior_boolean (84)
+    on left: 40 41 42 43 44 45 46 47 48 49 50 51, on right: 24
+optional_port (85)
+    on left: 52 53, on right: 11 12
+optional_weight (86)
+    on left: 54 55, on right: 11 12 13
+hash (87)
+    on left: 56 57 58 59 60 61 62 63 64, on right: 21 22
+string (88)
+    on left: 65 66, on right: 10 13 14 18
+distribution (89)
+    on left: 67 68 69, on right: 20 21
+
+
+State 0
+
+    0 $accept: . begin $end
+
+    COMMENT                 shift, and go to state 1
+    END                     shift, and go to state 2
+    CSL_ERROR               shift, and go to state 3
+    RESET                   shift, and go to state 4
+    PARSER_DEBUG            shift, and go to state 5
+    INCLUDE                 shift, and go to state 6
+    CONFIGURE_FILE          shift, and go to state 7
+    EMPTY_LINE              shift, and go to state 8
+    SERVER                  shift, and go to state 9
+    CSL_SOCKET              shift, and go to state 10
+    BINARY_PROTOCOL         shift, and go to state 11
+    BUFFER_REQUESTS         shift, and go to state 12
+    CONNECT_TIMEOUT         shift, and go to state 13
+    DISTRIBUTION            shift, and go to state 14
+    HASH                    shift, and go to state 15
+    HASH_WITH_NAMESPACE     shift, and go to state 16
+    IO_BYTES_WATERMARK      shift, and go to state 17
+    IO_KEY_PREFETCH         shift, and go to state 18
+    IO_MSG_WATERMARK        shift, and go to state 19
+    NOREPLY                 shift, and go to state 20
+    NUMBER_OF_REPLICAS      shift, and go to state 21
+    NUMBER_OF_K             shift, and go to state 22
+    NUMBER_OF_M             shift, and go to state 23
+    POLL_TIMEOUT            shift, and go to state 24
+    RANDOMIZE_REPLICA_READ  shift, and go to state 25
+    RCV_TIMEOUT             shift, and go to state 26
+    REMOVE_FAILED_SERVERS   shift, and go to state 27
+    RETRY_TIMEOUT           shift, and go to state 28
+    SND_TIMEOUT             shift, and go to state 29
+    SOCKET_RECV_SIZE        shift, and go to state 30
+    SOCKET_SEND_SIZE        shift, and go to state 31
+    SORT_HOSTS              shift, and go to state 32
+    SUPPORT_CAS             shift, and go to state 33
+    USER_DATA               shift, and go to state 34
+    USE_UDP                 shift, and go to state 35
+    VERIFY_KEY              shift, and go to state 36
+    _TCP_KEEPALIVE          shift, and go to state 37
+    _TCP_KEEPIDLE           shift, and go to state 38
+    _TCP_NODELAY            shift, and go to state 39
+    FETCH_VERSION           shift, and go to state 40
+    NAMESPACE               shift, and go to state 41
+    POOL_MIN                shift, and go to state 42
+    POOL_MAX                shift, and go to state 43
+
+    begin             go to state 44
+    statement         go to state 45
+    expression        go to state 46
+    behaviors         go to state 47
+    behavior_number   go to state 48
+    behavior_boolean  go to state 49
+
+
+State 1
+
+    4 statement: COMMENT .
+
+    $default  reduce using rule 4 (statement)
+
+
+State 2
+
+    6 statement: END .
+
+    $default  reduce using rule 6 (statement)
+
+
+State 3
+
+    7 statement: CSL_ERROR .
+
+    $default  reduce using rule 7 (statement)
+
+
+State 4
+
+    8 statement: RESET .
+
+    $default  reduce using rule 8 (statement)
+
+
+State 5
+
+    9 statement: PARSER_DEBUG .
+
+    $default  reduce using rule 9 (statement)
+
+
+State 6
+
+   10 statement: INCLUDE . ' ' string
+
+    ' '  shift, and go to state 50
+
+
+State 7
+
+   14 expression: CONFIGURE_FILE . string
+
+    STRING         shift, and go to state 51
+    QUOTED_STRING  shift, and go to state 52
+
+    string  go to state 53
+
+
+State 8
+
+    5 statement: EMPTY_LINE .
+
+    $default  reduce using rule 5 (statement)
+
+
+State 9
+
+   11 expression: SERVER . HOSTNAME optional_port optional_weight
+   12           | SERVER . IPADDRESS optional_port optional_weight
+
+    IPADDRESS  shift, and go to state 54
+    HOSTNAME   shift, and go to state 55
+
+
+State 10
+
+   13 expression: CSL_SOCKET . string optional_weight
+
+    STRING         shift, and go to state 51
+    QUOTED_STRING  shift, and go to state 52
+
+    string  go to state 56
+
+
+State 11
+
+   40 behavior_boolean: BINARY_PROTOCOL .
+
+    $default  reduce using rule 40 (behavior_boolean)
+
+
+State 12
+
+   41 behavior_boolean: BUFFER_REQUESTS .
+
+    $default  reduce using rule 41 (behavior_boolean)
+
+
+State 13
+
+   27 behavior_number: CONNECT_TIMEOUT .
+
+    $default  reduce using rule 27 (behavior_number)
+
+
+State 14
+
+   20 behaviors: DISTRIBUTION . distribution
+   21          | DISTRIBUTION . distribution ',' hash
+
+    CONSISTENT  shift, and go to state 57
+    MODULA      shift, and go to state 58
+    RANDOM      shift, and go to state 59
+
+    distribution  go to state 60
+
+
+State 15
+
+   22 behaviors: HASH . hash
+
+    MD5       shift, and go to state 61
+    CRC       shift, and go to state 62
+    FNV1_64   shift, and go to state 63
+    FNV1A_64  shift, and go to state 64
+    FNV1_32   shift, and go to state 65
+    FNV1A_32  shift, and go to state 66
+    HSIEH     shift, and go to state 67
+    MURMUR    shift, and go to state 68
+    JENKINS   shift, and go to state 69
+
+    hash  go to state 70
+
+
+State 16
+
+   42 behavior_boolean: HASH_WITH_NAMESPACE .
+
+    $default  reduce using rule 42 (behavior_boolean)
+
+
+State 17
+
+   29 behavior_number: IO_BYTES_WATERMARK .
+
+    $default  reduce using rule 29 (behavior_number)
+
+
+State 18
+
+   30 behavior_number: IO_KEY_PREFETCH .
+
+    $default  reduce using rule 30 (behavior_number)
+
+
+State 19
+
+   28 behavior_number: IO_MSG_WATERMARK .
+
+    $default  reduce using rule 28 (behavior_number)
+
+
+State 20
+
+   43 behavior_boolean: NOREPLY .
+
+    $default  reduce using rule 43 (behavior_boolean)
+
+
+State 21
+
+   31 behavior_number: NUMBER_OF_REPLICAS .
+
+    $default  reduce using rule 31 (behavior_number)
+
+
+State 22
+
+   32 behavior_number: NUMBER_OF_K .
+
+    $default  reduce using rule 32 (behavior_number)
+
+
+State 23
+
+   33 behavior_number: NUMBER_OF_M .
+
+    $default  reduce using rule 33 (behavior_number)
+
+
+State 24
+
+   34 behavior_number: POLL_TIMEOUT .
+
+    $default  reduce using rule 34 (behavior_number)
+
+
+State 25
+
+   44 behavior_boolean: RANDOMIZE_REPLICA_READ .
+
+    $default  reduce using rule 44 (behavior_boolean)
+
+
+State 26
+
+   35 behavior_number: RCV_TIMEOUT .
+
+    $default  reduce using rule 35 (behavior_number)
+
+
+State 27
+
+   26 behavior_number: REMOVE_FAILED_SERVERS .
+
+    $default  reduce using rule 26 (behavior_number)
+
+
+State 28
+
+   36 behavior_number: RETRY_TIMEOUT .
+
+    $default  reduce using rule 36 (behavior_number)
+
+
+State 29
+
+   37 behavior_number: SND_TIMEOUT .
+
+    $default  reduce using rule 37 (behavior_number)
+
+
+State 30
+
+   38 behavior_number: SOCKET_RECV_SIZE .
+
+    $default  reduce using rule 38 (behavior_number)
+
+
+State 31
+
+   39 behavior_number: SOCKET_SEND_SIZE .
+
+    $default  reduce using rule 39 (behavior_number)
+
+
+State 32
+
+   45 behavior_boolean: SORT_HOSTS .
+
+    $default  reduce using rule 45 (behavior_boolean)
+
+
+State 33
+
+   46 behavior_boolean: SUPPORT_CAS .
+
+    $default  reduce using rule 46 (behavior_boolean)
+
+
+State 34
+
+   25 behaviors: USER_DATA .
+
+    $default  reduce using rule 25 (behaviors)
+
+
+State 35
+
+   50 behavior_boolean: USE_UDP .
+
+    $default  reduce using rule 50 (behavior_boolean)
+
+
+State 36
+
+   51 behavior_boolean: VERIFY_KEY .
+
+    $default  reduce using rule 51 (behavior_boolean)
+
+
+State 37
+
+   48 behavior_boolean: _TCP_KEEPALIVE .
+
+    $default  reduce using rule 48 (behavior_boolean)
+
+
+State 38
+
+   49 behavior_boolean: _TCP_KEEPIDLE .
+
+    $default  reduce using rule 49 (behavior_boolean)
+
+
+State 39
+
+   47 behavior_boolean: _TCP_NODELAY .
+
+    $default  reduce using rule 47 (behavior_boolean)
+
+
+State 40
+
+   19 behaviors: FETCH_VERSION .
+
+    $default  reduce using rule 19 (behaviors)
+
+
+State 41
+
+   18 behaviors: NAMESPACE . string
+
+    STRING         shift, and go to state 51
+    QUOTED_STRING  shift, and go to state 52
+
+    string  go to state 71
+
+
+State 42
+
+   15 expression: POOL_MIN . NUMBER
+
+    NUMBER  shift, and go to state 72
+
+
+State 43
+
+   16 expression: POOL_MAX . NUMBER
+
+    NUMBER  shift, and go to state 73
+
+
+State 44
+
+    0 $accept: begin . $end
+    2 begin: begin . ' ' statement
+
+    $end  shift, and go to state 74
+    ' '   shift, and go to state 75
+
+
+State 45
+
+    1 begin: statement .
+
+    $default  reduce using rule 1 (begin)
+
+
+State 46
+
+    3 statement: expression .
+
+    $default  reduce using rule 3 (statement)
+
+
+State 47
+
+   17 expression: behaviors .
+
+    $default  reduce using rule 17 (expression)
+
+
+State 48
+
+   23 behaviors: behavior_number . NUMBER
+
+    NUMBER  shift, and go to state 76
+
+
+State 49
+
+   24 behaviors: behavior_boolean .
+
+    $default  reduce using rule 24 (behaviors)
+
+
+State 50
+
+   10 statement: INCLUDE ' ' . string
+
+    STRING         shift, and go to state 51
+    QUOTED_STRING  shift, and go to state 52
+
+    string  go to state 77
+
+
+State 51
+
+   65 string: STRING .
+
+    $default  reduce using rule 65 (string)
+
+
+State 52
+
+   66 string: QUOTED_STRING .
+
+    $default  reduce using rule 66 (string)
+
+
+State 53
+
+   14 expression: CONFIGURE_FILE string .
+
+    $default  reduce using rule 14 (expression)
+
+
+State 54
+
+   12 expression: SERVER IPADDRESS . optional_port optional_weight
+
+    PORT  shift, and go to state 78
+
+    $default  reduce using rule 52 (optional_port)
+
+    optional_port  go to state 79
+
+
+State 55
+
+   11 expression: SERVER HOSTNAME . optional_port optional_weight
+
+    PORT  shift, and go to state 78
+
+    $default  reduce using rule 52 (optional_port)
+
+    optional_port  go to state 80
+
+
+State 56
+
+   13 expression: CSL_SOCKET string . optional_weight
+
+    WEIGHT_START  shift, and go to state 81
+
+    $default  reduce using rule 54 (optional_weight)
+
+    optional_weight  go to state 82
+
+
+State 57
+
+   67 distribution: CONSISTENT .
+
+    $default  reduce using rule 67 (distribution)
+
+
+State 58
+
+   68 distribution: MODULA .
+
+    $default  reduce using rule 68 (distribution)
+
+
+State 59
+
+   69 distribution: RANDOM .
+
+    $default  reduce using rule 69 (distribution)
+
+
+State 60
+
+   20 behaviors: DISTRIBUTION distribution .
+   21          | DISTRIBUTION distribution . ',' hash
+
+    ','  shift, and go to state 83
+
+    $default  reduce using rule 20 (behaviors)
+
+
+State 61
+
+   56 hash: MD5 .
+
+    $default  reduce using rule 56 (hash)
+
+
+State 62
+
+   57 hash: CRC .
+
+    $default  reduce using rule 57 (hash)
+
+
+State 63
+
+   58 hash: FNV1_64 .
+
+    $default  reduce using rule 58 (hash)
+
+
+State 64
+
+   59 hash: FNV1A_64 .
+
+    $default  reduce using rule 59 (hash)
+
+
+State 65
+
+   60 hash: FNV1_32 .
+
+    $default  reduce using rule 60 (hash)
+
+
+State 66
+
+   61 hash: FNV1A_32 .
+
+    $default  reduce using rule 61 (hash)
+
+
+State 67
+
+   62 hash: HSIEH .
+
+    $default  reduce using rule 62 (hash)
+
+
+State 68
+
+   63 hash: MURMUR .
+
+    $default  reduce using rule 63 (hash)
+
+
+State 69
+
+   64 hash: JENKINS .
+
+    $default  reduce using rule 64 (hash)
+
+
+State 70
+
+   22 behaviors: HASH hash .
+
+    $default  reduce using rule 22 (behaviors)
+
+
+State 71
+
+   18 behaviors: NAMESPACE string .
+
+    $default  reduce using rule 18 (behaviors)
+
+
+State 72
+
+   15 expression: POOL_MIN NUMBER .
+
+    $default  reduce using rule 15 (expression)
+
+
+State 73
+
+   16 expression: POOL_MAX NUMBER .
+
+    $default  reduce using rule 16 (expression)
+
+
+State 74
+
+    0 $accept: begin $end .
+
+    $default  accept
+
+
+State 75
+
+    2 begin: begin ' ' . statement
+
+    COMMENT                 shift, and go to state 1
+    END                     shift, and go to state 2
+    CSL_ERROR               shift, and go to state 3
+    RESET                   shift, and go to state 4
+    PARSER_DEBUG            shift, and go to state 5
+    INCLUDE                 shift, and go to state 6
+    CONFIGURE_FILE          shift, and go to state 7
+    EMPTY_LINE              shift, and go to state 8
+    SERVER                  shift, and go to state 9
+    CSL_SOCKET              shift, and go to state 10
+    BINARY_PROTOCOL         shift, and go to state 11
+    BUFFER_REQUESTS         shift, and go to state 12
+    CONNECT_TIMEOUT         shift, and go to state 13
+    DISTRIBUTION            shift, and go to state 14
+    HASH                    shift, and go to state 15
+    HASH_WITH_NAMESPACE     shift, and go to state 16
+    IO_BYTES_WATERMARK      shift, and go to state 17
+    IO_KEY_PREFETCH         shift, and go to state 18
+    IO_MSG_WATERMARK        shift, and go to state 19
+    NOREPLY                 shift, and go to state 20
+    NUMBER_OF_REPLICAS      shift, and go to state 21
+    NUMBER_OF_K             shift, and go to state 22
+    NUMBER_OF_M             shift, and go to state 23
+    POLL_TIMEOUT            shift, and go to state 24
+    RANDOMIZE_REPLICA_READ  shift, and go to state 25
+    RCV_TIMEOUT             shift, and go to state 26
+    REMOVE_FAILED_SERVERS   shift, and go to state 27
+    RETRY_TIMEOUT           shift, and go to state 28
+    SND_TIMEOUT             shift, and go to state 29
+    SOCKET_RECV_SIZE        shift, and go to state 30
+    SOCKET_SEND_SIZE        shift, and go to state 31
+    SORT_HOSTS              shift, and go to state 32
+    SUPPORT_CAS             shift, and go to state 33
+    USER_DATA               shift, and go to state 34
+    USE_UDP                 shift, and go to state 35
+    VERIFY_KEY              shift, and go to state 36
+    _TCP_KEEPALIVE          shift, and go to state 37
+    _TCP_KEEPIDLE           shift, and go to state 38
+    _TCP_NODELAY            shift, and go to state 39
+    FETCH_VERSION           shift, and go to state 40
+    NAMESPACE               shift, and go to state 41
+    POOL_MIN                shift, and go to state 42
+    POOL_MAX                shift, and go to state 43
+
+    statement         go to state 84
+    expression        go to state 46
+    behaviors         go to state 47
+    behavior_number   go to state 48
+    behavior_boolean  go to state 49
+
+
+State 76
+
+   23 behaviors: behavior_number NUMBER .
+
+    $default  reduce using rule 23 (behaviors)
+
+
+State 77
+
+   10 statement: INCLUDE ' ' string .
+
+    $default  reduce using rule 10 (statement)
+
+
+State 78
+
+   53 optional_port: PORT .
+
+    $default  reduce using rule 53 (optional_port)
+
+
+State 79
+
+   12 expression: SERVER IPADDRESS optional_port . optional_weight
+
+    WEIGHT_START  shift, and go to state 81
+
+    $default  reduce using rule 54 (optional_weight)
+
+    optional_weight  go to state 85
+
+
+State 80
+
+   11 expression: SERVER HOSTNAME optional_port . optional_weight
+
+    WEIGHT_START  shift, and go to state 81
+
+    $default  reduce using rule 54 (optional_weight)
+
+    optional_weight  go to state 86
+
+
+State 81
+
+   55 optional_weight: WEIGHT_START .
+
+    $default  reduce using rule 55 (optional_weight)
+
+
+State 82
+
+   13 expression: CSL_SOCKET string optional_weight .
+
+    $default  reduce using rule 13 (expression)
+
+
+State 83
+
+   21 behaviors: DISTRIBUTION distribution ',' . hash
+
+    MD5       shift, and go to state 61
+    CRC       shift, and go to state 62
+    FNV1_64   shift, and go to state 63
+    FNV1A_64  shift, and go to state 64
+    FNV1_32   shift, and go to state 65
+    FNV1A_32  shift, and go to state 66
+    HSIEH     shift, and go to state 67
+    MURMUR    shift, and go to state 68
+    JENKINS   shift, and go to state 69
+
+    hash  go to state 87
+
+
+State 84
+
+    2 begin: begin ' ' statement .
+
+    $default  reduce using rule 2 (begin)
+
+
+State 85
+
+   12 expression: SERVER IPADDRESS optional_port optional_weight .
+
+    $default  reduce using rule 12 (expression)
+
+
+State 86
+
+   11 expression: SERVER HOSTNAME optional_port optional_weight .
+
+    $default  reduce using rule 11 (expression)
+
+
+State 87
+
+   21 behaviors: DISTRIBUTION distribution ',' hash .
+
+    $default  reduce using rule 21 (behaviors)
