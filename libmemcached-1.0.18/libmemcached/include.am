@@ -122,6 +122,18 @@ libmemcached_libmemcached_la_SOURCES+= libmemcached/verbosity.cc
 libmemcached_libmemcached_la_SOURCES+= libmemcached/version.cc
 libmemcached_libmemcached_la_SOURCES+= libmemcached/virtual_bucket.c
 
+noinst_HEADERS+= Jerasure-1.2A/cauchy.h
+noinst_HEADERS+= Jerasure-1.2A/galois.h
+noinst_HEADERS+= Jerasure-1.2A/jerasure.h
+noinst_HEADERS+= Jerasure-1.2A/liberation.h
+noinst_HEADERS+= Jerasure-1.2A/reed_sol.h
+#libmemcached_libmemcached_la_SOURCES+= Jerasure-1.2A/cauchy.c
+libmemcached_libmemcached_la_SOURCES+= Jerasure-1.2A/cauchy_best_r6.c
+libmemcached_libmemcached_la_SOURCES+= Jerasure-1.2A/jerasure.c
+libmemcached_libmemcached_la_SOURCES+= Jerasure-1.2A/liberation.c
+libmemcached_libmemcached_la_SOURCES+= Jerasure-1.2A/reed_sol.c
+libmemcached_libmemcached_la_SOURCES+= Jerasure-1.2A/galois.c
+
 libmemcached/options.cc: libmemcached/csl/parser.h
 
 libmemcached_libmemcached_la_LDFLAGS+= -version-info ${MEMCACHED_LIBRARY_VERSION}
