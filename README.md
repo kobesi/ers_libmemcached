@@ -4,7 +4,9 @@ In this file, we briefly introduce how to deploy and run the ers kv store protot
 
 The ers kv store prototype is implemented based on libmemcached-1.0.18. We integrate the ers/srs/rs codes, the normal set/get/update operations of ers/srs/rs codes, and the redundancy transitioning operations into libmemcached. Note that ers/srs/rs codes are added by modifying the read/write pathes of libmemcached. To show how we modify libmemcached, we have a file, _modified_file_list_, which tells what files we have modified in the libmemcached-1.0.18/ directory. This file, i.e., modified_file_list, can also be regarded as a guide for how to integrate a erasure coding strategy into libmemcached.
 
-To test the encoding and transitioning performance of ers/srs codes, we can call the _memcached_set_, _memcached_get_, and _memcached_move_ functions. As an example, we have a test file, _test_libmem.cc_, in the root directory. This file sets several configurations of memcached and calls set/get/transition functions for replication/ers/srs. Users can modify this file slightly (i.e., modify the server ips) to test the read/write/transitioning performance of replication/ers/srs.
+We leverge the Jerasure library to realize ers/srs/rs codes. We include a Jerasure folder in the libmemcached-1.0.18/ directly. In enable Jerasure functions, we have modified the libmemcached-1.0.18/libmemcached/include.am file.
+
+To test the encoding and transitioning performance of ers/srs codes, we can call the _memcached_set_, _memcached_get_, and _memcached_move_ functions. As an example, we have a test file, _test_libmem.cc_, in the root directory. This file sets several configurations (e.g., k, m, s of ers/srs codes) and calls set/get/transition functions for replication/ers/srs. Users can modify this file slightly (i.e., modify the server ips) to test the read/write/transitioning performance of replication/ers/srs.
 
 The prototype is tested on Ubuntu 16.04.5, so we use Ubuntu as an example to show the deplyment.
 
@@ -99,7 +101,7 @@ A test_libmem executable is generated in the root directory.
 
 ## 4. Running and testing
 
-The input command of test_libmem is like "./test_libmem code_name enhanced_tag value_size operation parameter", where the code_name could be 'srs' and 'ers', 'enhanced_tag' means whether the designed/enhanced placement of ers code is specified, 'value_size' means the size of the value (in KB), operation can be 'en' (encoding)/ 'tr' (transitioning)/ 'ca' (calculating), and 'parameter' means the transitioning parameter and it could be 'p0' (k=2, m=1, k'=3)/ 'p1' (k=4, m=1, k'=5)/ 'p2' ((k=5, m=1, k'=6)). We assume the 1 KB value size and 
+The input command of test_libmem is like "./test_libmem code_name enhanced_tag value_size operation parameter", where the code_name could be 'srs' and 'ers', 'enhanced_tag' means whether the designed/enhanced placement of ers code is specified, 'value_size' means the size of the value (in KB), operation can be 'en' (encoding)/ 'tr' (transitioning)/ 'ca' (calculating), and 'parameter' means the transitioning parameter and it could be 'p0' (k=2, m=1, k'=3)/ 'p1' (k=4, m=1, k'=5)/ 'p2' ((k=5, m=1, k'=6)). We assume 1 KB value size and 
 (k=2, m=1, k'=3) in the following.
 
 At the root directory, we first generate two 1 KB sized files, called 'input_item_1K_ERS' and 'input_item_1K_SRS', which store the values of objects. The keys of objects are generated in test_libmem.cc. Then we start to test the encoding and transitioning performance of srs/ers codes.

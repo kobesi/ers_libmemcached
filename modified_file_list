@@ -1,0 +1,21 @@
+In libmemcached-1.0.18/libmemcached/:
+
+  behavior.cc (setting/getting k, m, k')
+
+  get.cc (get functions of ers/srs/rs codes)
+
+  storage.cc (set/update/transition functions of ers/srs/rs codes)
+
+In libmemcached-1.0.18/libmemcached-1.0/struct/
+
+  memcached.h (metadata data structures)
+
+In libmemcached-1.0.18/libmemcached-1.0/types/
+
+  behavior.h (data structure related to k, m, k')
+
+In libmemcached-1.0.18/libmemcached-1.0/
+
+  get.h (get interfaces)
+
+  storage.h (set/update/transition interfaces)
